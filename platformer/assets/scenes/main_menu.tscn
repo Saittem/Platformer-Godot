@@ -1,0 +1,106 @@
+[gd_scene load_steps=8 format=3 uid="uid://jtydg72j8n4k"]
+
+[ext_resource type="Script" uid="uid://b6fcayvn8bi00" path="res://scripts/main_menu.gd" id="1_57ux2"]
+[ext_resource type="Texture2D" uid="uid://djs84ncvuwgh6" path="res://assets/sprites/background/layer_1.png" id="2_f2xsc"]
+[ext_resource type="Texture2D" uid="uid://dlsf74l6cwwgw" path="res://assets/sprites/background/layer_2.png" id="3_v71do"]
+[ext_resource type="Texture2D" uid="uid://cslwdjvhnp2eu" path="res://assets/sprites/UI/logo-sheet.png" id="4_xmmar"]
+
+[sub_resource type="Animation" id="Animation_qsvht"]
+resource_name = "logo_animation"
+length = 0.75
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_g6pa2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_okjdd"]
+_data = {
+&"RESET": SubResource("Animation_g6pa2"),
+&"logo_animation": SubResource("Animation_qsvht")
+}
+
+[node name="main_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_57ux2")
+
+[node name="foreground" type="Sprite2D" parent="."]
+position = Vector2(578.778, 326)
+scale = Vector2(3.61111, 3.61111)
+texture = ExtResource("2_f2xsc")
+
+[node name="background" type="Sprite2D" parent="."]
+position = Vector2(578, 413)
+scale = Vector2(3.60687, 3.60687)
+texture = ExtResource("3_v71do")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -368.0
+offset_right = 368.0
+offset_bottom = 232.0
+grow_horizontal = 2
+
+[node name="logo" type="Sprite2D" parent="VBoxContainer2"]
+position = Vector2(376, 112)
+scale = Vector2(2.94531, 2.94531)
+texture = ExtResource("4_xmmar")
+hframes = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="VBoxContainer2/logo"]
+libraries = {
+&"": SubResource("AnimationLibrary_okjdd")
+}
+autoplay = "logo_animation"
+
+[node name="buttons" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -213.0
+offset_top = -73.5
+offset_right = 213.0
+offset_bottom = 73.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="buttons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 65
+text = "Play"
+
+[connection signal="pressed" from="buttons/Button" to="." method="_on_play_pressed"]

@@ -1,7 +1,7 @@
-[gd_scene load_steps=49 format=3 uid="uid://dbcbm3t7bx6ve"]
+[gd_scene load_steps=50 format=3 uid="uid://dbcbm3t7bx6ve"]
 
 [ext_resource type="Texture2D" uid="uid://bjlrhhn2dpf5a" path="res://assets/sprites/player/Idle.png" id="1_4flbx"]
-[ext_resource type="Script" uid="uid://cqwvc8j58gpoq" path="res://scripts/player_movement.gd" id="1_5pvfp"]
+[ext_resource type="Script" uid="uid://cqwvc8j58gpoq" path="res://scripts/player.gd" id="1_5pvfp"]
 [ext_resource type="Texture2D" uid="uid://bfc023q48mpnk" path="res://assets/sprites/player/Death.png" id="2_jssbp"]
 [ext_resource type="Texture2D" uid="uid://cx0q3jcldmyuo" path="res://assets/sprites/player/Attack.png" id="2_nqkij"]
 [ext_resource type="Texture2D" uid="uid://eiacoy1xt7wa" path="res://assets/sprites/player/Run.png" id="3_jg13i"]
@@ -319,20 +319,44 @@ animations = [{
 "speed": 20.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nqkij"]
+size = Vector2(32, 42)
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_5pvfp")
 SPEED = 150.0
 JUMP_VELOCITY = -300.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(1, -17)
 shape = SubResource("CapsuleShape2D_urp6f")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, -24)
 sprite_frames = SubResource("SpriteFrames_ivps1")
-animation = &"attack"
+animation = &"death"
 autoplay = "idle"
-frame = 3
+frame = 9
 frame_progress = 1.0
+
+[node name="hit_area_left" type="Area2D" parent="AnimatedSprite2D"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/hit_area_left"]
+position = Vector2(29, 3)
+shape = SubResource("RectangleShape2D_nqkij")
+disabled = true
+
+[node name="hit_area_right" type="Area2D" parent="AnimatedSprite2D"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/hit_area_right"]
+position = Vector2(-30, 3)
+shape = SubResource("RectangleShape2D_nqkij")
+disabled = true
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="body_entered" from="AnimatedSprite2D/hit_area_left" to="." method="_on_hit_area_body_entered"]
+[connection signal="body_entered" from="AnimatedSprite2D/hit_area_right" to="." method="_on_hit_area_body_entered"]
