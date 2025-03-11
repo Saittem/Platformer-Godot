@@ -1,9 +1,24 @@
-[gd_scene load_steps=8 format=3 uid="uid://jtydg72j8n4k"]
+[gd_scene load_steps=10 format=3 uid="uid://jtydg72j8n4k"]
 
 [ext_resource type="Script" uid="uid://b6fcayvn8bi00" path="res://scripts/main_menu.gd" id="1_57ux2"]
 [ext_resource type="Texture2D" uid="uid://djs84ncvuwgh6" path="res://assets/sprites/background/layer_1.png" id="2_f2xsc"]
 [ext_resource type="Texture2D" uid="uid://dlsf74l6cwwgw" path="res://assets/sprites/background/layer_2.png" id="3_v71do"]
 [ext_resource type="Texture2D" uid="uid://cslwdjvhnp2eu" path="res://assets/sprites/UI/logo-sheet.png" id="4_xmmar"]
+
+[sub_resource type="Animation" id="Animation_g6pa2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_qsvht"]
 resource_name = "logo_animation"
@@ -22,26 +37,39 @@ tracks/0/keys = {
 "values": [0, 1, 2]
 }
 
-[sub_resource type="Animation" id="Animation_g6pa2"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_okjdd"]
 _data = {
 &"RESET": SubResource("Animation_g6pa2"),
 &"logo_animation": SubResource("Animation_qsvht")
 }
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f2xsc"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.000693897, 0.000693898, 0.000693897, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_size = 1
+shadow_offset = Vector2(10, 10)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_57ux2"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.724643, 0.724643, 0.724642, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_size = 1
+shadow_offset = Vector2(10, 10)
 
 [node name="main_menu" type="Control"]
 layout_mode = 3
@@ -98,9 +126,11 @@ offset_bottom = 73.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Button" type="Button" parent="buttons"]
+[node name="playButton" type="Button" parent="buttons"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 65
+theme_override_styles/hover = SubResource("StyleBoxFlat_f2xsc")
+theme_override_styles/normal = SubResource("StyleBoxFlat_57ux2")
 text = "Play"
 
-[connection signal="pressed" from="buttons/Button" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="buttons/playButton" to="." method="_on_play_pressed"]

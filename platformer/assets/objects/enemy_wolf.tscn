@@ -87,7 +87,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6x78b"]
-size = Vector2(46, 26)
+size = Vector2(42, 24)
 
 [node name="enemy_wolf" type="CharacterBody2D"]
 collision_layer = 3
@@ -95,11 +95,13 @@ collision_mask = 3
 script = ExtResource("1_hcqrq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-4, 2)
+scale = Vector2(0.875, 0.875)
 sprite_frames = SubResource("SpriteFrames_ec1vg")
-animation = &"running"
-frame = 3
-frame_progress = 0.908359
+animation = &"attack"
+frame = 4
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(2, 3)
+position = Vector2(-2, 4)
 shape = SubResource("RectangleShape2D_6x78b")

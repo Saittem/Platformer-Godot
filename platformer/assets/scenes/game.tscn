@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=4 uid="uid://cax0ru51qbbl1"]
+[gd_scene load_steps=13 format=4 uid="uid://cax0ru51qbbl1"]
 
 [ext_resource type="Texture2D" uid="uid://dk4v40jr32fwf" path="res://assets/sprites/world/map-tileset.png" id="1_j62u1"]
 [ext_resource type="PackedScene" uid="uid://drenwmydgs56k" path="res://assets/objects/kill_zone.tscn" id="2_5aext"]
 [ext_resource type="PackedScene" uid="uid://ba7x7vbi0gb7f" path="res://assets/objects/platform.tscn" id="3_3w2km"]
 [ext_resource type="PackedScene" uid="uid://dbcbm3t7bx6ve" path="res://assets/objects/player.tscn" id="4_wfsp4"]
 [ext_resource type="PackedScene" uid="uid://30baw3lec4tg" path="res://assets/objects/enemy_wolf.tscn" id="5_pw37s"]
+[ext_resource type="PackedScene" uid="uid://b4l16q7rycvt8" path="res://assets/objects/enemy_barrier.tscn" id="6_5aext"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_e2o6t"]
 texture = ExtResource("1_j62u1")
@@ -301,3 +302,13 @@ limit_bottom = 255
 
 [node name="enemy_wolf" parent="." instance=ExtResource("5_pw37s")]
 position = Vector2(870, 106)
+collision_layer = 7
+collision_mask = 7
+
+[node name="enemy_barrier" parent="." instance=ExtResource("6_5aext")]
+position = Vector2(788, 112)
+scale = Vector2(1, 4.6)
+
+[node name="enemy_barrier2" parent="." instance=ExtResource("6_5aext")]
+position = Vector2(424, 116)
+scale = Vector2(1, 4.6)
